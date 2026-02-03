@@ -5,6 +5,7 @@ import HeroSection from "@/components/LandingPage/hero-section";
 import Animated, { useSharedValue, useAnimatedScrollHandler } from "react-native-reanimated";
 import FoodCarousel from "@/components/LandingPage/food-caurosel";
 import AboutSection from "@/components/LandingPage/about-section";
+import { ThemedView } from "@/components/themed-view";
 
 export default function HomeScreenPage() {
     const scrollY = useSharedValue(0);
@@ -15,9 +16,11 @@ export default function HomeScreenPage() {
         },
     });
 
+
     return (
-        <View style={styles.container}>
+        <ThemedView safe style={styles.container}>
             <HomeHeader />
+
             <Animated.ScrollView
                 onScroll={scrollHandler}
                 scrollEventThrottle={16}
@@ -29,7 +32,7 @@ export default function HomeScreenPage() {
 
                 <AboutSection />
             </Animated.ScrollView>
-        </View>
+        </ThemedView>
     );
 }
 

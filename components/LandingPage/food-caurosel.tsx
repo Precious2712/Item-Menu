@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     carousel: {
         flexDirection: "row",
-        width: '95%'
+        width: '95%',
     },
     card: {
         width: CARD_WIDTH,

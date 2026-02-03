@@ -34,16 +34,6 @@ export default function AboutSection() {
             scrollEventThrottle={16}
             contentContainerStyle={styles.container}
         >
-            <View style={styles.imageWrapper}>
-                <Animated.View style={[styles.imageInner, imageAnimatedStyle]}>
-                    <Image
-                        source={{uri: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/images/chef-6B9kM1BlE8RugU043sxSObSODwbzUF.jpg'}}
-                        style={styles.image}
-                        resizeMode="cover"
-                    />
-                </Animated.View>
-            </View>
-
             <View style={styles.content}>
                 <Text style={styles.tag}>OUR PHILOSOPHY</Text>
 
@@ -72,6 +62,17 @@ export default function AboutSection() {
                     <Stat number="150+" label="Signature Dishes" />
                 </View>
             </View>
+
+            <View style={styles.imageWrapper}>
+                <Animated.View style={[styles.imageInner, imageAnimatedStyle]}>
+                    <Image
+                        source={{ uri: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/images/chef-6B9kM1BlE8RugU043sxSObSODwbzUF.jpg' }}
+                        style={styles.image}
+                        resizeMode="cover"
+                    />
+                </Animated.View>
+            </View>
+
         </Animated.ScrollView>
     );
 }
@@ -88,7 +89,7 @@ function Stat({ number, label }: { number: string; label: string }) {
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 80,
+        paddingVertical: 25,
         paddingHorizontal: 8,
     },
 
@@ -124,6 +125,7 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: "300",
         marginBottom: 24,
+        color: 'black'
     },
 
     divider: {
