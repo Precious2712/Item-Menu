@@ -5,7 +5,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { AnimatePresence, MotiView } from 'moti';
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 export default function HomeHeader() {
     const [open, setOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function HomeHeader() {
                         from={{ opacity: 0, translateY: -20 }}
                         animate={{ opacity: 1, translateY: 0 }}
                         exit={{ opacity: 0, translateY: -20 }}
-                        style={[styles.drop, { backgroundColor: theme.colors.card }]}
+                        style={[styles.drop, { backgroundColor: 'green' }]}
                     >
                         <FlatList
                             data={navItem}
@@ -46,7 +46,7 @@ export default function HomeHeader() {
                                         fontWeight: '600',
                                         fontSize: 15,
                                         paddingVertical: 16,
-                                        paddingHorizontal: 24,
+                                        paddingHorizontal: 15,
                                     }}
                                     onPressIn={() => setActiveItem(index)}
                                     onPressOut={() => setActiveItem(null)}

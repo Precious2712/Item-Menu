@@ -6,6 +6,8 @@ import Animated, { useSharedValue, useAnimatedScrollHandler } from "react-native
 import FoodCarousel from "@/components/LandingPage/food-caurosel";
 import AboutSection from "@/components/LandingPage/about-section";
 import { ThemedView } from "@/components/themed-view";
+import CTASection from "@/components/LandingPage/cta-section";
+import Footer from "@/components/LandingPage/footer";
 
 export default function HomeScreenPage() {
     const scrollY = useSharedValue(0);
@@ -31,6 +33,10 @@ export default function HomeScreenPage() {
                 <FoodCarousel />
 
                 <AboutSection />
+
+                <CTASection />
+
+                <Footer />
             </Animated.ScrollView>
         </ThemedView>
     );

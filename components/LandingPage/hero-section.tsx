@@ -8,11 +8,11 @@ const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const HERO_HEIGHT = SCREEN_HEIGHT * 0.8;
 
 type HeroSectionProps = {
-    scrollY?: SharedValue<number>; // make optional if you want internal fallback
+    scrollY?: SharedValue<number>;
 };
 
 export default function HeroSection({ scrollY }: HeroSectionProps) {
-    // fallback if not provided
+
     const internalScrollY = scrollY ?? { value: 0 };
 
     const parallaxStyle = useAnimatedStyle(() => {
@@ -53,11 +53,11 @@ export default function HeroSection({ scrollY }: HeroSectionProps) {
                 </MotiView>
                 <MotiView from={{ opacity: 0, translateY: 20 }} animate={{ opacity: 1, translateY: 0 }} transition={{ duration: 800, delay: 1000 }} style={styles.buttonsContainer}>
                     <TouchableOpacity style={styles.primaryButton}>
-                        <Text style={styles.primaryButtonText}>View Menu</Text>
+                        <Link href='/create' style={styles.primaryButtonText}>Create Account</Link>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.secondaryButton}>
-                        <Link href="/dishes" style={styles.secondaryButtonText}>
-                            Reserve Table
+                        <Link href="/login" style={styles.secondaryButtonText}>
+                            Login
                         </Link>
                     </TouchableOpacity>
                 </MotiView>

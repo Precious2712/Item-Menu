@@ -2,21 +2,26 @@ import { useState } from "react";
 import { StyleSheet, TextInput, View, Text, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { IconSymbol } from "../ui/icon-symbol";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+
 
 export default function TabHeader() {
     const [item, setItem] = useState("");
     const [open, setOpen] = useState(false);
     const insets = useSafeAreaInsets();
 
-    // Example dropdown items
+    const colorScheme = useColorScheme();
+    const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+
     const suggestions = ["Pizza", "Burger", "Pasta", "Salad", "Sushi", "Taco", "Noodles", "Steak", "Ice Cream"];
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={[styles.header, { paddingTop: insets.top }]}>
+            <View style={[styles.header, { paddingTop: insets.top, backgroundColor: theme.colors.background }]}>
 
                 <View style={styles.container}>
-                    <IconSymbol name="house.fill" size={26} color="#fff" />
+                    <IconSymbol name="house.fill" size={26} color={theme.colors.text} />
 
                     <View style={styles.searchContainer}>
                         <IconSymbol name="magnifyingglass" size={20} color="#777" style={styles.searchIcon} />
@@ -33,7 +38,6 @@ export default function TabHeader() {
                     </View>
                 </View>
 
-                {/* Dropdown */}
                 {open && (
                     <View style={styles.dropdown}>
                         <ScrollView nestedScrollEnabled style={{ maxHeight: 300 }}>
@@ -61,7 +65,6 @@ export default function TabHeader() {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: "black",
         paddingBottom: 12,
         borderBottomWidth: 2,
         borderBottomColor: 'gray'

@@ -10,7 +10,6 @@ import Animated, {
 
 import { dishes } from "@/data/item/dish";
 
-// const { width } = Dimensions.get("window");
 const CARD_WIDTH = 250;
 const GAP = 16;
 

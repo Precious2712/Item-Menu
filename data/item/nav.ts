@@ -24,11 +24,19 @@ export const navItem: nav[] = [
 
     {
         id: 3,
-        text: 'Sign In'
+        text: 'Logout'
     },
 
     {
         id: 4,
-        text: 'Sign In'
-    }
+        text: 'Dishes'
+    },
+    {
+        id: 5,
+        text: 'Meal'
+    },
+    {
+        id: 6,
+        text: 'Cart'
+    },
 ];

@@ -90,7 +90,7 @@ function Stat({ number, label }: { number: string; label: string }) {
 const styles = StyleSheet.create({
     container: {
         paddingVertical: 25,
-        paddingHorizontal: 8,
+        paddingHorizontal: 20,
     },
 
     imageWrapper: {
