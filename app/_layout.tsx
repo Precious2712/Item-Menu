@@ -7,15 +7,14 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen
           name="index"
-          options={{
-            headerShown: false
-          }}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
@@ -23,8 +22,11 @@ export default function RootLayout() {
           options={{
             title: 'Create',
             headerStyle: {
-              backgroundColor: `${colorScheme === 'dark' ? DarkTheme.colors.primary : DefaultTheme.colors.primary}`
-            }
+              backgroundColor: isDark
+                ? DarkTheme.colors.background
+                : DefaultTheme.colors.background,
+            },
+            headerTintColor: isDark ? '#fff' : '#000',
           }}
         />
 
@@ -33,23 +35,25 @@ export default function RootLayout() {
           options={{
             title: 'Login',
             headerStyle: {
-              backgroundColor: `${colorScheme === 'dark' ? DarkTheme.colors.primary : DefaultTheme.colors.primary}`
-            }
+              backgroundColor: isDark
+                ? DarkTheme.colors.background
+                : DefaultTheme.colors.background,
+            },
+            headerTintColor: isDark ? '#fff' : '#000',
           }}
         />
 
         <Stack.Screen
           name="(menu)"
-          options={{
-            headerShown: false
-          }}
+          options={{ headerShown: false }}
         />
       </Stack>
 
+      
       <StatusBar
-        style={colorScheme === 'dark' ? 'light' : 'dark'}
+        style={isDark ? 'light' : 'dark'}
         backgroundColor={
-          colorScheme === 'dark'
+          isDark
             ? DarkTheme.colors.background
             : DefaultTheme.colors.background
         }
