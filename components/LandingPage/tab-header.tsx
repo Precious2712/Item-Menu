@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, View, Text, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { StyleSheet, TextInput, View, Text, TouchableOpacity, FlatList, Keyboard } from "react-native";
 import { IconSymbol } from "../ui/icon-symbol";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { Link } from "expo-router";
-
 
 export default function TabHeader() {
     const [item, setItem] = useState("");
@@ -15,54 +14,33 @@ export default function TabHeader() {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
 
-    const suggestions = ["Pizza", "Burger", "Pasta", "Salad", "Sushi", "Taco", "Noodles", "Steak", "Ice Cream"];
-
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={[styles.header, { paddingTop: insets.top, backgroundColor: theme.colors.background }]}>
+        <View style={[styles.header, { paddingTop: insets.top, backgroundColor: theme.colors.background }]}>
 
-                <View style={styles.container}>
-                    <Link href='/'>
-                        <IconSymbol name="house.fill" size={26} color={theme.colors.text} />
-                    </Link>
+            <View style={styles.container}>
+                <Link href='/'>
+                    <IconSymbol name="house.fill" size={26} color={theme.colors.text} />
+                </Link>
 
-                    <View style={styles.searchContainer}>
-                        <IconSymbol name="magnifyingglass" size={20} color="#777" style={styles.searchIcon} />
-
-                        <TextInput
-                            value={item}
-                            onChangeText={setItem}
-                            placeholder="Search..."
-                            placeholderTextColor="#999"
-                            style={styles.input}
-                            onFocus={() => setOpen(true)}
-                            onBlur={() => setOpen(false)}
-                        />
-                    </View>
+                <View style={styles.searchContainer}>
+                    <IconSymbol name="magnifyingglass" size={20} color="#777" style={styles.searchIcon} />
+                    <TextInput
+                        value={item}
+                        onChangeText={setItem}
+                        placeholder="Search..."
+                        placeholderTextColor="#999"
+                        style={styles.input}
+                        onFocus={() => setOpen(true)}
+                    />
                 </View>
-
-                {open && (
-                    <View style={styles.dropdown}>
-                        <ScrollView nestedScrollEnabled style={{ maxHeight: 300 }}>
-                            {suggestions
-                                .filter((s) => s.toLowerCase().includes(item.toLowerCase()))
-                                .map((s, index) => (
-                                    <TouchableOpacity
-                                        key={index}
-                                        style={styles.dropdownItem}
-                                        onPress={() => {
-                                            setItem(s);
-                                            setOpen(false);
-                                        }}
-                                    >
-                                        <Text style={styles.dropdownText}>{s}</Text>
-                                    </TouchableOpacity>
-                                ))}
-                        </ScrollView>
-                    </View>
-                )}
             </View>
-        </TouchableWithoutFeedback>
+
+            {open && (
+                <View style={styles.dropdown}>
+
+                </View>
+            )}
+        </View>
     );
 }
 
@@ -70,9 +48,9 @@ const styles = StyleSheet.create({
     header: {
         paddingBottom: 12,
         borderBottomWidth: 2,
-        borderBottomColor: 'gray'
+        borderBottomColor: 'gray',
+        overflow: 'visible', 
     },
-
     container: {
         flexDirection: "row",
         alignItems: "center",
@@ -81,7 +59,6 @@ const styles = StyleSheet.create({
         marginTop: 9,
         gap: 12,
     },
-
     searchContainer: {
         flex: 1,
         flexDirection: "row",
@@ -91,42 +68,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         position: "relative",
     },
-
-    searchIcon: {
-        marginRight: 6,
-    },
-
-    input: {
-        flex: 1,
-        height: 40,
-        fontSize: 16,
-        color: "#000",
-    },
-
+    searchIcon: { marginRight: 6 },
+    input: { flex: 1, height: 40, fontSize: 16, color: "#000" },
     dropdown: {
         position: "absolute",
-        top: 62, // below the search input
+        top: 60, 
         left: 16,
         right: 16,
         backgroundColor: "#fff",
         borderRadius: 8,
         zIndex: 1000,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        // no fixed height here, handled by ScrollView
+        elevation: 20, 
+        maxHeight: 300, 
     },
-
+    
     dropdownItem: {
         padding: 10,
         borderBottomColor: "#eee",
         borderBottomWidth: 1,
     },
-
-    dropdownText: {
-        fontSize: 16,
-        color: "#000",
-    },
+    dropdownText: { fontSize: 16, color: "#000" },
 });

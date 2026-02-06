@@ -1,7 +1,8 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+import { ProductProvider } from '@/context/useContext';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -11,56 +12,54 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
-  const backgroundColor = isDark
-    ? DarkTheme.colors.background
-    : DefaultTheme.colors.background;
+  const backgroundColor = isDark ? DarkTheme.colors.background : DefaultTheme.colors.background;
 
   return (
-    <ThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
+    <>
       <StatusBar
-        style="auto"
-        backgroundColor={
-          isDark ? DarkTheme.colors.background : DefaultTheme.colors.background
-        }
+        style='auto'
+        backgroundColor={isDark ? '#000' : '#ffffff'}
         translucent={false}
       />
 
 
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{ headerShown: false }}
-        />
+      <ProductProvider>
+        <Stack>
+          <Stack.Screen
+            name="index"
+            options={{ headerShown: false }}
+          />
 
-        <Stack.Screen
-          name="create"
-          options={{
-            title: 'Create',
-            headerStyle: {
-              backgroundColor,
-            },
-            headerTintColor: isDark ? '#fff' : '#000',
-          }}
-        />
+          <Stack.Screen
+            name="create"
+            options={{
+              title: 'Create',
+              headerStyle: {
+                backgroundColor,
+              },
+              headerTintColor: isDark ? '#fff' : '#000',
+            }}
+          />
 
-        <Stack.Screen
-          name="login"
-          options={{
-            title: 'Login',
-            headerStyle: {
-              backgroundColor,
-            },
-            headerTintColor: isDark ? '#fff' : '#000',
-          }}
-        />
+          <Stack.Screen
+            name="login"
+            options={{
+              title: 'Login',
+              headerStyle: {
+                backgroundColor,
+              },
+              headerTintColor: isDark ? '#fff' : '#000',
+            }}
+          />
 
-        <Stack.Screen
-          name="(menu)"
-          options={{ headerShown: false }}
-        />
-      </Stack>
+          <Stack.Screen
+            name="(menu)"
+            options={{ headerShown: false }}
+          />
+        </Stack>
+      </ProductProvider>
 
       <Toast />
-    </ThemeProvider>
+    </>
   );
 }

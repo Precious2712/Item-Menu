@@ -93,7 +93,7 @@ export default function CreateAccount() {
         const user = { email, password };
 
         try {
-            const res = await axios.post('http://localhost:8000/api/v1/create-user', user);
+            const res = await axios.post('https://backend-service-jfkg.onrender.com/api/v1/create-user', user);
 
             Toast.show({
                 type: 'success',
