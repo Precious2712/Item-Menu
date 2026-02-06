@@ -1,42 +1,45 @@
-
-interface nav {
+interface Nav {
     id: number;
     text: string;
-    // path: string;
+    path:
+    | "/"
+    | "/create"
+    | "/login"
+    | "/dishes"
+    | "/meal"
+    // | "/snack"
+    | "/cart";
 }
 
-export const navItem: nav[] = [
+export const navItem: Nav[] = [
     {
         id: 0,
         text: 'Home',
-        // path: ''
+        path: '/',
     },
-
     {
         id: 1,
-        text: 'Menu'
+        text: 'Create Account',
+        path: '/create',
     },
-
     {
         id: 2,
-        text: 'Create Account'
+        text: 'Dishes',
+        path: '/dishes',
     },
-
     {
         id: 3,
-        text: 'Logout'
+        text: 'Meal',
+        path: '/meal',
     },
-
     {
         id: 4,
-        text: 'Dishes'
+        text: 'Cart',
+        path: '/cart',
     },
-    {
-        id: 5,
-        text: 'Meal'
-    },
-    {
-        id: 6,
-        text: 'Cart'
-    },
+    // {
+    //     id: 5,
+    //     text: 'snack',
+    //     path: '/snack',
+    // },
 ];

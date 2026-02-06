@@ -53,6 +53,15 @@ export default function DashBoardLayout() {
                         ),
                     }}
                 />
+
+                <Tabs.Screen
+                    name="snack"
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <IconSymbol name="snack" size={size} color={color} />
+                        ),
+                    }}
+                />
             </Tabs>
         </ThemeProvider>
     );

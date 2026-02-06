@@ -5,12 +5,27 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
+import Toast from 'react-native-toast-message';
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
+  const backgroundColor = isDark
+    ? DarkTheme.colors.background
+    : DefaultTheme.colors.background;
+
   return (
     <ThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
+      <StatusBar
+        style="auto"
+        backgroundColor={
+          isDark ? DarkTheme.colors.background : DefaultTheme.colors.background
+        }
+        translucent={false}
+      />
+
+
       <Stack>
         <Stack.Screen
           name="index"
@@ -22,9 +37,7 @@ export default function RootLayout() {
           options={{
             title: 'Create',
             headerStyle: {
-              backgroundColor: isDark
-                ? DarkTheme.colors.background
-                : DefaultTheme.colors.background,
+              backgroundColor,
             },
             headerTintColor: isDark ? '#fff' : '#000',
           }}
@@ -35,9 +48,7 @@ export default function RootLayout() {
           options={{
             title: 'Login',
             headerStyle: {
-              backgroundColor: isDark
-                ? DarkTheme.colors.background
-                : DefaultTheme.colors.background,
+              backgroundColor,
             },
             headerTintColor: isDark ? '#fff' : '#000',
           }}
@@ -49,16 +60,7 @@ export default function RootLayout() {
         />
       </Stack>
 
-      
-      <StatusBar
-        style={isDark ? 'light' : 'dark'}
-        backgroundColor={
-          isDark
-            ? DarkTheme.colors.background
-            : DefaultTheme.colors.background
-        }
-        translucent={false}
-      />
+      <Toast />
     </ThemeProvider>
   );
 }

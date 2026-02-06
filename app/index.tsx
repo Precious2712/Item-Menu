@@ -1,4 +1,4 @@
-// HomeScreenPage.tsx
+
 import { ScrollView, StyleSheet, View } from "react-native";
 import HomeHeader from "@/components/LandingPage/HomeHeader";
 import HeroSection from "@/components/LandingPage/hero-section";

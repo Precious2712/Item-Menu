@@ -4,6 +4,7 @@ import { IconSymbol } from "../ui/icon-symbol";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { Link } from "expo-router";
 
 
 export default function TabHeader() {
@@ -21,7 +22,9 @@ export default function TabHeader() {
             <View style={[styles.header, { paddingTop: insets.top, backgroundColor: theme.colors.background }]}>
 
                 <View style={styles.container}>
-                    <IconSymbol name="house.fill" size={26} color={theme.colors.text} />
+                    <Link href='/'>
+                        <IconSymbol name="house.fill" size={26} color={theme.colors.text} />
+                    </Link>
 
                     <View style={styles.searchContainer}>
                         <IconSymbol name="magnifyingglass" size={20} color="#777" style={styles.searchIcon} />

@@ -4,6 +4,7 @@ import { navItem } from "@/data/item/nav";
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { AnimatePresence, MotiView } from 'moti';
+import { Link } from "expo-router";
 
 const { height } = Dimensions.get('window');
 
@@ -15,8 +16,8 @@ export default function HomeHeader() {
     const [activeItem, setActiveItem] = useState<number | null>(null);
 
     return (
-        <View style={[styles.container, {backgroundColor: theme.colors.primary}]}>
-            
+        <View style={[styles.container, { backgroundColor: theme.colors.primary }]}>
+
             <View style={[styles.head, { backgroundColor: theme.colors.card }]}>
                 <Text style={[styles.logo, { color: theme.colors.text }]}>Maison Élégance</Text>
                 <Text
@@ -27,7 +28,7 @@ export default function HomeHeader() {
                 </Text>
             </View>
 
-            
+
             <AnimatePresence>
                 {open && (
                     <MotiView
@@ -40,7 +41,8 @@ export default function HomeHeader() {
                             data={navItem}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item, index }) => (
-                                <Text
+                                <Link
+                                    href={item.path} // navigate to the item's path
                                     style={{
                                         color: activeItem === index ? theme.colors.primary : theme.colors.text,
                                         fontWeight: '600',
@@ -52,7 +54,7 @@ export default function HomeHeader() {
                                     onPressOut={() => setActiveItem(null)}
                                 >
                                     {item.text}
-                                </Text>
+                                </Link>
                             )}
                             contentContainerStyle={{ paddingTop: 8 }}
                             showsVerticalScrollIndicator={true}

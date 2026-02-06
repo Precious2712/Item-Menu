@@ -20,6 +20,7 @@ export const MAPPING = {
   'dishes': 'fastfood',
   'cart': 'shopping-cart',
   'view': 'visibility',
+  'snack': 'fastfood',
 } as const; // ✅ "as const" makes the keys readonly literal types
 
 // Derive the icon names type from the mapping

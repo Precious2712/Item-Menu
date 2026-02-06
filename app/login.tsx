@@ -14,6 +14,9 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { TouchableWithoutFeedback } from 'react-native';
 
+import Toast from 'react-native-toast-message';
+import axios, { isAxiosError } from 'axios';
+
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -73,6 +76,58 @@ export default function LoginForm() {
             outputRange: ['#999', theme.colors.text],
         }),
     };
+
+
+    const handleLogin = async () => {
+        if (!email || !password) {
+            Toast.show({
+                type: 'error',
+                text1: 'Email and Password required',
+                text2: 'Please enter both fields to continue',
+                position: 'top',
+                visibilityTime: 3000,
+                autoHide: true,
+            });
+            return;
+        }
+
+        const user = { email, password };
+
+        try {
+            await axios.post('http://localhost:8000/api/v1/sign-in-user', user);
+
+            Toast.show({
+                type: 'success',
+                text1: 'Account Created',
+                text2: `Welcome, ${email}!`,
+                position: 'top',
+                visibilityTime: 3000,
+                autoHide: true,
+            });
+
+            router.push('/');
+
+        } catch (error) {
+            console.log(error);
+
+            let err = 'An error has occured'
+
+            if (isAxiosError(error)) {
+                err = error.response?.data.message
+            }
+
+            Toast.show({
+                type: 'error',
+                text1: 'Signup Failed',
+                text2: err || 'Something went wrong',
+                position: 'top',
+                visibilityTime: 3000,
+                autoHide: true,
+            });
+        }
+    };
+
+
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -152,6 +207,7 @@ export default function LoginForm() {
 
 
                 <TouchableOpacity
+                    onPress={handleLogin}
                     style={[
                         styles.button,
                         { backgroundColor: theme.colors.primary },
