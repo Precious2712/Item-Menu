@@ -1,18 +1,25 @@
 import axios, { isAxiosError } from "axios";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 
 import { FoodItem, FoodResponse } from "@/data/item/food";
 import { SnackResponse, SnackItem } from "@/data/item/snacks";
 import { AsianResponse, AsianItem } from "@/data/item/asian";
 
+import { SubDataMenu } from "@/data/item/single-product";
+
 type ProductContextType = {
     food: FoodItem[];
     loading: boolean;
+
     snacks: SnackItem[];
     loadingSnacks: boolean;
+
     loadingAsian: boolean;
     asian: AsianItem[];
+
+    handleSelectItem: (id: string) => void;
 };
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -27,6 +34,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     const [loadingAsian, setLoadingAsian] = useState<boolean>(false);
     const [asian, setAsian] = useState<AsianItem[]>([]);
 
+    const router = useRouter();
+
 
     const getAllMenu = async () => {
         setLoading(true);
@@ -35,6 +44,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
                 "https://backend-service-jfkg.onrender.com/api/v1/getAllMenu"
             );
             setFood(res.data.food);
+            // console.log(res.data);
+
         } catch (error) {
             console.log(error, "error-response");
             let err = "An error has occurred";
@@ -58,6 +69,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
                 "https://backend-service-jfkg.onrender.com/api/v1/get-all-snacks"
             );
             setSnacks(res.data.fastFood);
+            // console.log(res.data);
+
         } catch (error) {
             console.log(error, "error-response");
             let err = "An error has occurred";
@@ -72,12 +85,14 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
 
     const getAllAsian = async () => {
-        setLoading(true);
+        setLoadingAsian(true);
         try {
             const res = await axios.get<AsianResponse>(
                 "https://backend-service-jfkg.onrender.com/api/v1/chineese-foods"
             );
-            setSnacks(res.data.asian);
+            setAsian(res.data.asian);
+            // console.log(res.data, 'All Asian');
+
         } catch (error) {
             console.log(error, "error-response");
             let err = "An error has occurred";
@@ -89,8 +104,13 @@ export function ProductProvider({ children }: { children: ReactNode }) {
                 });
             }
         } finally {
-            setLoading(false);
+            setLoadingAsian(false);
         }
+    };
+
+
+    const handleSelectItem = (id: string) => {
+        router.push(`/view/${id}`); 
     };
 
 
@@ -105,7 +125,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
 
     return (
-        <ProductContext.Provider value={{ food, loading, snacks, loadingSnacks, asian, loadingAsian }}>
+        <ProductContext.Provider value={{ food, loading, snacks, loadingSnacks, asian, loadingAsian, handleSelectItem }}>
             {children}
         </ProductContext.Provider>
     );

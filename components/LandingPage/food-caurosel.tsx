@@ -8,7 +8,7 @@ import Animated, {
     runOnJS,
 } from "react-native-reanimated";
 
-import { dishes } from "@/data/item/dish";
+import { dishes } from "@/data/item/dishes";
 
 const CARD_WIDTH = 250;
 const GAP = 16;
@@ -24,7 +24,7 @@ export default function FoodCarousel() {
 
         const animate = () => {
             translateX.value = withTiming(-totalWidth, {
-                duration: 200000,
+                duration: 100000,
                 easing: Easing.linear,
             }, () => {
                 translateX.value = 0;
