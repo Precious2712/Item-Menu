@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         height: HERO_HEIGHT,
         width: "100%",
         overflow: "hidden",
+        backgroundColor: 'red'
     },
     parallaxContainer: {
         ...StyleSheet.absoluteFillObject,
@@ -90,13 +91,57 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingHorizontal: 20,
     },
-    subtitle: { color: "#FFD700", fontSize: 14, letterSpacing: 2, marginBottom: 8 },
-    title: { color: "#FFF", fontSize: 46, fontWeight: "300", textAlign: "center" },
-    divider: { width: 96, height: 2, backgroundColor: "#FFD700", marginVertical: 20 },
-    description: { color: "#CCC", fontSize: 16, textAlign: "center", maxWidth: 320, lineHeight: 22 },
-    buttonsContainer: { flexDirection: "row", marginTop: 24, gap: 16 },
-    primaryButton: { paddingVertical: 12, paddingHorizontal: 24, backgroundColor: "#FFD700", borderRadius: 4 },
-    primaryButtonText: { color: "#000", fontWeight: "bold", letterSpacing: 1 },
-    secondaryButton: { paddingVertical: 12, paddingHorizontal: 24, borderWidth: 1, borderColor: "#FFF", borderRadius: 4 },
-    secondaryButtonText: { color: "#FFF", fontWeight: "bold", letterSpacing: 1 },
+    subtitle: {
+        color: "#FFD700",
+        fontSize: 14,
+        letterSpacing: 2,
+        marginBottom: 8
+    },
+    title: {
+        color: "#FFF",
+        fontSize: 46,
+        fontWeight: "300",
+        textAlign: "center"
+    },
+    divider: {
+        width: 96,
+        height: 2,
+        backgroundColor: "#FFD700",
+        marginVertical: 20
+    },
+    description: {
+        color: "#CCC",
+        fontSize: 16,
+        textAlign: "center",
+        maxWidth: 320,
+        lineHeight: 22
+    },
+    buttonsContainer: {
+        flexDirection: "row",
+        marginTop: 24,
+        gap: 16
+    },
+    primaryButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        backgroundColor: "#FFD700",
+        borderRadius: 4
+    },
+    primaryButtonText: {
+        color: "#000",
+        fontWeight: "bold",
+        letterSpacing: 1
+    },
+    secondaryButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderWidth: 1,
+        borderColor: "#FFF",
+        borderRadius: 4
+    },
+    secondaryButtonText: {
+        color: "#FFF",
+        fontWeight: "bold",
+        letterSpacing: 1
+    },
 });

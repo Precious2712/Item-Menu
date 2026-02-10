@@ -17,8 +17,8 @@ export default function RootLayout() {
   return (
     <>
       <StatusBar
-        style='auto'
-        backgroundColor={isDark ? '#000' : '#ffffff'}
+        style={isDark ? 'light' : 'dark'}
+        backgroundColor={isDark ? '#000' : '#fff'}
         translucent={false}
       />
 

@@ -1,43 +1,27 @@
-
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import HomeHeader from "@/components/LandingPage/HomeHeader";
-import HeroSection from "@/components/LandingPage/hero-section";
-import Animated, { useSharedValue, useAnimatedScrollHandler } from "react-native-reanimated";
+import ParallaxScrollView from "@/components/parallax-scroll-view";
+import HeroScreen from "@/components/LandingPage/hero-screen";
 import FoodCarousel from "@/components/LandingPage/food-caurosel";
 import AboutSection from "@/components/LandingPage/about-section";
-import { ThemedView } from "@/components/themed-view";
 import CTASection from "@/components/LandingPage/cta-section";
 import Footer from "@/components/LandingPage/footer";
+import { ThemedView } from "@/components/themed-view";
 
 export default function HomeScreenPage() {
-    const scrollY = useSharedValue(0);
-
-    const scrollHandler = useAnimatedScrollHandler({
-        onScroll: (event) => {
-            scrollY.value = event.contentOffset.y;
-        },
-    });
-
-
     return (
         <ThemedView safe style={styles.container}>
             <HomeHeader />
 
-            <Animated.ScrollView
-                onScroll={scrollHandler}
-                scrollEventThrottle={16}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingTop: 0 }}
+            <ParallaxScrollView
+                headerBackgroundColor={{ light: "#000", dark: "#000" }}
+                headerImage={<HeroScreen />}
             >
-                <HeroSection scrollY={scrollY} />
                 <FoodCarousel />
-
                 <AboutSection />
-
                 <CTASection />
-
                 <Footer />
-            </Animated.ScrollView>
+            </ParallaxScrollView>
         </ThemedView>
     );
 }
@@ -45,6 +29,6 @@ export default function HomeScreenPage() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white"
+        backgroundColor: "white",
     },
 });

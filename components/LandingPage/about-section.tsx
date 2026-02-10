@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     container: {
         paddingVertical: 25,
         paddingHorizontal: 20,
+        backgroundColor: 'white'
     },
 
     imageWrapper: {

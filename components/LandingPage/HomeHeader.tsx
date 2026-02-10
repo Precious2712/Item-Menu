@@ -16,7 +16,7 @@ export default function HomeHeader() {
     const [activeItem, setActiveItem] = useState<number | null>(null);
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.colors.primary }]}>
+        <View>
 
             <View style={[styles.head, { backgroundColor: theme.colors.card }]}>
                 <Text style={[styles.logo, { color: theme.colors.text }]}>Maison Élégance</Text>
@@ -67,9 +67,9 @@ export default function HomeHeader() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        zIndex: 10,
-    },
+    // container: {
+    //     zIndex: 10,
+    // },
     head: {
         width: '100%',
         flexDirection: "row",

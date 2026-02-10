@@ -11,7 +11,11 @@ import { ThemedView } from '@/components/themed-view';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
-const HEADER_HEIGHT = 250;
+import { Dimensions } from "react-native";
+
+const HEADER_HEIGHT = Dimensions.get("window").height * 0.75;
+
+// const HEADER_HEIGHT = 250;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
@@ -72,8 +76,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 32,
+    // padding: 32,
     gap: 16,
     overflow: 'hidden',
+    backgroundColor: 'white'
   },
 });

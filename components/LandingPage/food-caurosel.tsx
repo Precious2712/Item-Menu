@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -57,7 +57,8 @@ export default function FoodCarousel() {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 20
+        marginVertical: 20,
+        backgroundColor: 'white'
     },
     header: {
         fontSize: 28,
