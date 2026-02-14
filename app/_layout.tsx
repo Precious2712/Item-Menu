@@ -56,7 +56,18 @@ export default function RootLayout() {
             name="(menu)"
             options={{ headerShown: false }}
           />
+
+          <Stack.Screen
+            name="map"
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="check-out"
+            options={{ headerShown: false }}
+          />
         </Stack>
+
       </ProductProvider>
 
       <Toast />

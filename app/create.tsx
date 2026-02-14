@@ -95,6 +95,8 @@ export default function CreateAccount() {
         try {
             const res = await axios.post('https://backend-service-jfkg.onrender.com/api/v1/create-user', user);
 
+            console.log(res.data, 'create-data User database');
+
             Toast.show({
                 type: 'success',
                 text1: 'Account Created',

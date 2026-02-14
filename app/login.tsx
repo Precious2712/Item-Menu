@@ -14,6 +14,8 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { TouchableWithoutFeedback } from 'react-native';
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import Toast from 'react-native-toast-message';
 import axios, { isAxiosError } from 'axios';
 
@@ -81,53 +83,51 @@ export default function LoginForm() {
     const handleLogin = async () => {
         if (!email || !password) {
             Toast.show({
-                type: 'error',
-                text1: 'Email and Password required',
-                text2: 'Please enter both fields to continue',
-                position: 'top',
-                visibilityTime: 3000,
-                autoHide: true,
+                type: "error",
+                text1: "Email and Password required",
+                text2: "Please enter both fields to continue",
             });
             return;
         }
 
-        const user = { email, password };
-
         try {
-            await axios.post('https://backend-service-jfkg.onrender.com/api/v1/sign-in-user', user);
+            const res = await axios.post(
+                "https://backend-service-jfkg.onrender.com/api/v1/sign-in-user",
+                { email, password }
+            );
+
+            console.log(res.data, "res/data");
+
+            if (res.data.token) {
+                await AsyncStorage.setItem("token", res.data.token);
+
+                const savedToken = await AsyncStorage.getItem("token");
+                console.log("saved token →", savedToken);
+            }
 
             Toast.show({
-                type: 'success',
-                text1: 'Account Created',
-                text2: `Welcome, ${email}!`,
-                position: 'top',
-                visibilityTime: 3000,
-                autoHide: true,
+                type: "success",
+                text1: `Welcome, ${email}!`,
             });
 
-            router.push('/');
+            router.push("/");
 
         } catch (error) {
             console.log(error);
 
-            let err = 'An error has occured'
+            let err = "An error has occured";
 
             if (isAxiosError(error)) {
-                err = error.response?.data.message
+                err = error.response?.data.message || err;
             }
 
             Toast.show({
-                type: 'error',
-                text1: 'Signup Failed',
-                text2: err || 'Something went wrong',
-                position: 'top',
-                visibilityTime: 3000,
-                autoHide: true,
+                type: "error",
+                text1: "Login Failed",
+                text2: err,
             });
         }
     };
-
-
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

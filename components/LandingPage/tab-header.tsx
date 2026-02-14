@@ -18,7 +18,7 @@ export default function TabHeader() {
         <View style={[styles.header, { paddingTop: insets.top, backgroundColor: theme.colors.background }]}>
 
             <View style={styles.container}>
-                <Link href='/'>
+                <Link style={styles.home} href='/'>
                     <IconSymbol name="house.fill" size={26} color={theme.colors.text} />
                 </Link>
 
@@ -49,15 +49,20 @@ const styles = StyleSheet.create({
         paddingBottom: 12,
         borderBottomWidth: 2,
         borderBottomColor: 'gray',
-        overflow: 'visible', 
+        overflow: 'visible',
     },
     container: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: 'center',
-        paddingHorizontal: 16,
+        justifyContent: 'space-between',
+        paddingHorizontal: 2,
         marginTop: 9,
-        gap: 12,
+        gap: 32,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 15,
+        // backgroundColor: 'red'
+        // width: '90%'
     },
     searchContainer: {
         flex: 1,
@@ -72,20 +77,27 @@ const styles = StyleSheet.create({
     input: { flex: 1, height: 40, fontSize: 16, color: "#000" },
     dropdown: {
         position: "absolute",
-        top: 60, 
+        top: 60,
         left: 16,
         right: 16,
         backgroundColor: "#fff",
         borderRadius: 8,
         zIndex: 1000,
-        elevation: 20, 
-        maxHeight: 300, 
+        elevation: 20,
+        maxHeight: 300,
     },
-    
+
     dropdownItem: {
         padding: 10,
         borderBottomColor: "#eee",
         borderBottomWidth: 1,
     },
     dropdownText: { fontSize: 16, color: "#000" },
+
+    home: {
+        padding: 2,
+        borderWidth: 3,
+        borderRadius: 10,
+        backgroundColor: 'gray'
+    }
 });

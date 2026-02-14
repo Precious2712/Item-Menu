@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native"
 import { MotiView } from "moti"
+import { Link } from "expo-router"
 
 export default function CTASection() {
     return (
@@ -31,12 +32,12 @@ export default function CTASection() {
                         style={styles.buttonGroup}
                     >
                         <Pressable style={[styles.button, styles.primaryBtn]}>
-                            <Text style={styles.primaryText}>RESERVE A TABLE</Text>
+                            <Link href='/cart' style={styles.primaryText}>VIEW CART</Link>
                         </Pressable>
 
-                        <Pressable style={[styles.button, styles.outlineBtn]}>
+                        {/* <Pressable style={[styles.button, styles.outlineBtn]}>
                             <Text style={styles.outlineText}>CONTACT US</Text>
-                        </Pressable>
+                        </Pressable> */}
                     </MotiView>
                 </MotiView>
             </View>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     section: {
         flex: 1,
         paddingHorizontal: 20,
-        justifyContent: "center", 
+        justifyContent: "center",
     },
     container: {
         maxWidth: 640,

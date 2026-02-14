@@ -7,7 +7,11 @@ import { FoodItem, FoodResponse } from "@/data/item/food";
 import { SnackResponse, SnackItem } from "@/data/item/snacks";
 import { AsianResponse, AsianItem } from "@/data/item/asian";
 
-import { SubDataMenu } from "@/data/item/single-product";
+import { UserCartItem } from "@/data/item/cart";
+import { SubCartItem } from "@/data/item/user-cart";
+import { Cart, CartResponse } from "@/data/screen/user-cart-item";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type ProductContextType = {
     food: FoodItem[];
@@ -20,6 +24,18 @@ type ProductContextType = {
     asian: AsianItem[];
 
     handleSelectItem: (id: string) => void;
+    handleOrderCartItem: (items: UserCartItem, extra: SubCartItem[], pickUpLocation: string) => void;
+    setResults: React.Dispatch<React.SetStateAction<string>>;
+    setRefreshing: React.Dispatch<React.SetStateAction<boolean>>;
+    result: string;
+    cartLoading: boolean;
+
+    updateQuantity: (itemId: string, type: "plus" | "minus") => void;
+    isloading: boolean;
+    refreshing: boolean;
+    pickUpLocation: () => Promise<string>;
+    cart: Cart | null;
+    fetchCart: () => void;
 };
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -33,6 +49,14 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
     const [loadingAsian, setLoadingAsian] = useState<boolean>(false);
     const [asian, setAsian] = useState<AsianItem[]>([]);
+
+    const [result, setResults] = useState('');
+
+    const [cartLoading, setCartLoading] = useState(false);
+
+    const [cart, setCart] = useState<Cart | null>(null);
+    const [isloading, setIsLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
 
     const router = useRouter();
 
@@ -110,9 +134,161 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
 
     const handleSelectItem = (id: string) => {
-        router.push(`/view/${id}`); 
+        router.push(`/view/${id}`);
     };
 
+
+    const handleOrderCartItem = async (
+        items: UserCartItem,
+        extra: SubCartItem[],
+        pickUpLocation: string
+    ) => {
+        try {
+            if (!pickUpLocation) {
+                Toast.show({
+                    type: "error",
+                    text1: "Pick up location required",
+                });
+                return;
+            }
+
+            const mainItem = [
+                {
+                    imagery: items.image,
+                    price: items.price,
+                    quantity: 1,
+                },
+            ];
+
+            const extras = extra.map((extra) => ({
+                imagery: extra.image,
+                price: extra.price,
+                quantity: 1,
+            }));
+
+            const payload = {
+                pickUpLocation,
+                item: mainItem,
+                itemOne: extras,
+            };
+
+            console.log("Sending payload →", payload);
+
+            const token = await AsyncStorage.getItem("token");
+
+            if (!token) {
+                Toast.show({
+                    type: "error",
+                    text1: "Please login first",
+                });
+                return;
+            }
+
+            setCartLoading(true);
+
+            const res = await axios.post(
+                "https://backend-service-jfkg.onrender.com/api/v1/create-user-cart",
+                payload,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            console.log("item-added to cart", res.data);
+
+            Toast.show({
+                type: "success",
+                text1: "Added to cart",
+            });
+
+        } catch (error) {
+            console.log(error, "error-response");
+
+            let err = "An error has occurred";
+
+            if (isAxiosError(error)) {
+                err = error.response?.data?.message || err;
+            }
+
+            Toast.show({
+                type: "error",
+                text1: err,
+            });
+        } finally {
+            setCartLoading(false);
+        }
+    };
+
+
+    const pickUpLocation = async () => {
+        router.push("/map");
+        return result;
+    };
+
+
+    const updateQuantity = async (
+        itemId: string,
+        type: "plus" | "minus"
+    ) => {
+        const token = await AsyncStorage.getItem("token");
+
+        try {
+            await axios.post(
+                "https://backend-service-jfkg.onrender.com/api/v1/update-cart-item",
+                {
+                    cartItemId: itemId,
+                    type,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            if (type === 'minus') {
+                Toast.show({
+                    type: "success",
+                    text1: "Product quantity reduced",
+                });
+            }
+
+            if (type === 'plus') {
+                Toast.show({
+                    type: "success",
+                    text1: "Quantity increase",
+                });
+            }
+
+            fetchCart();
+        } catch (error) {
+            console.log("Update cart error:", error);
+        }
+    };
+
+    const fetchCart = async () => {
+        const token = await AsyncStorage.getItem("token");
+
+        try {
+            const res = await axios.get<CartResponse>(
+                "https://backend-service-jfkg.onrender.com/api/v1/get-user-cart",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            setCart(res.data.cart);
+        } catch (error) {
+            console.log("Fetch cart error:", error);
+        } finally {
+            setIsLoading(false);
+            setRefreshing(false);
+        }
+    };
 
 
 
@@ -120,12 +296,26 @@ export function ProductProvider({ children }: { children: ReactNode }) {
         getAllMenu();
         getAllSnacks();
         getAllAsian();
+        fetchCart();
     }, []);
 
 
 
     return (
-        <ProductContext.Provider value={{ food, loading, snacks, loadingSnacks, asian, loadingAsian, handleSelectItem }}>
+        <ProductContext.Provider value={{
+            food, isloading,
+            loading, pickUpLocation,
+            snacks, cart,
+            loadingSnacks,
+            asian, handleOrderCartItem,
+            loadingAsian, handleSelectItem,
+            setResults, result,
+            cartLoading,
+            updateQuantity,
+            setRefreshing,
+            refreshing,
+            fetchCart
+        }}>
             {children}
         </ProductContext.Provider>
     );

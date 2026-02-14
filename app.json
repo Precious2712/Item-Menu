@@ -6,21 +6,29 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "shopping",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyCrXEgTuoyWqOD55wbjew_Swf2_631HKzM"
+      }
     },
     "android": {
+      "package": "com.moonlight12.shopping",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCrXEgTuoyWqOD55wbjew_Swf2_631HKzM"
+        }
+      },
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
-      },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "package": "com.moonlight12.shopping"
+      }
     },
     "web": {
       "output": "static",
