@@ -1,6 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import HomeHeader from "@/components/LandingPage/HomeHeader";
-import ParallaxScrollView from "@/components/parallax-scroll-view";
 import HeroScreen from "@/components/LandingPage/hero-screen";
 import FoodCarousel from "@/components/LandingPage/food-caurosel";
 import AboutSection from "@/components/LandingPage/about-section";
@@ -11,17 +10,23 @@ import { ThemedView } from "@/components/themed-view";
 export default function HomeScreenPage() {
     return (
         <ThemedView safe style={styles.container}>
+            {/* Header stays at the top */}
             <HomeHeader />
 
-            <ParallaxScrollView
-                headerBackgroundColor={{ light: "#000", dark: "#000" }}
-                headerImage={<HeroScreen />}
+            {/* Scrollable content */}
+            <ScrollView
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
             >
+                {/* Hero section */}
+                <HeroScreen />
+
+                {/* Other sections */}
                 <FoodCarousel />
                 <AboutSection />
                 <CTASection />
                 <Footer />
-            </ParallaxScrollView>
+            </ScrollView>
         </ThemedView>
     );
 }
@@ -30,5 +35,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
+    },
+    scrollContent: {
+        paddingBottom: 50, // optional spacing at the bottom
     },
 });

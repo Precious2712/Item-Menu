@@ -1,9 +1,11 @@
 import React from "react";
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { MotiView } from "moti";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 
 export default function HeroScreen() {
+    const router = useRouter();
+
     return (
         <ImageBackground
             source={{
@@ -32,12 +34,12 @@ export default function HeroScreen() {
                 </MotiView>
 
                 <MotiView from={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1000 }} style={styles.buttons}>
-                    <TouchableOpacity style={styles.primaryButton}>
-                        <Link href="/create" style={styles.primaryText}>Create Account</Link>
+                    <TouchableOpacity style={styles.primaryButton} onPress={() => router.push("/create")}>
+                        <Text style={styles.primaryText}>Create Account</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.secondaryButton}>
-                        <Link href="/login" style={styles.secondaryText}>Login</Link>
+                    <TouchableOpacity style={styles.secondaryButton} onPress={() => router.push("/login")}>
+                        <Text style={styles.secondaryText}>Login</Text>
                     </TouchableOpacity>
                 </MotiView>
             </View>
@@ -47,7 +49,7 @@ export default function HeroScreen() {
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
+        height: 500, // adjust as needed
         justifyContent: "center",
     },
     overlay: {
@@ -86,13 +88,13 @@ const styles = StyleSheet.create({
     buttons: {
         flexDirection: "row",
         marginTop: 24,
-        gap: 16,
     },
     primaryButton: {
         backgroundColor: "#FFD700",
         paddingVertical: 12,
         paddingHorizontal: 24,
         borderRadius: 4,
+        marginRight: 16, // spacing between buttons
     },
     primaryText: {
         color: "#000",
