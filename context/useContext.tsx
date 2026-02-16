@@ -295,6 +295,11 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     const handleDeleteItem = async (productId: string) => {
         const token = await AsyncStorage.getItem("token");
 
+        console.log('token-delete-id', token);
+
+        console.log('product-id-delete', productId);
+        
+
         if (!token) {
             Toast.show({
                 type: "error",
@@ -319,9 +324,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
                 type: "success",
                 text1: res.data.message || "Product removed from cart",
             });
-
-            // Refresh cart so UI updates
-            fetchCart();
+            
+            await fetchCart();
 
         } catch (error) {
             console.log("Delete item error:", error);

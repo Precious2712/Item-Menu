@@ -104,6 +104,9 @@ export default function LoginForm() {
 
                 const savedToken = await AsyncStorage.getItem("token");
                 console.log("saved token →", savedToken);
+
+                const email = await AsyncStorage.setItem('email', res.data.email);
+                console.log('user-email', email);
             }
 
             Toast.show({

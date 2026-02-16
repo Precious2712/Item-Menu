@@ -21,6 +21,7 @@ export const MAPPING = {
   'cart': 'shopping-cart',
   'view': 'visibility',
   'snack': 'fastfood',
+  'map.pin': 'location-on',
 } as const; // ✅ "as const" makes the keys readonly literal types
 
 // Derive the icon names type from the mapping

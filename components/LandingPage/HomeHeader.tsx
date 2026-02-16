@@ -26,11 +26,11 @@ export default function HomeHeader() {
             if (Platform.OS === "android") {
                 ToastAndroid.show("Logged out successfully", ToastAndroid.SHORT);
             } else {
-                
+
                 console.log("Logged out successfully");
             }
 
-            router.replace("/login"); 
+            router.replace("/login");
         } catch (error) {
             console.log("Logout error:", error);
         }
@@ -81,6 +81,8 @@ export default function HomeHeader() {
                             showsVerticalScrollIndicator={true}
                         />
 
+
+
                         <Pressable
                             style={{
                                 position: 'absolute',
@@ -95,9 +97,9 @@ export default function HomeHeader() {
                         >
                             <Text style={{ color: theme.colors.text, fontWeight: '700', fontSize: 16, }}>Logout</Text>
                         </Pressable>
+
                     </MotiView>
                 )}
-
             </AnimatePresence>
         </View>
     );
