@@ -22,6 +22,7 @@ import axios, { isAxiosError } from 'axios';
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const router = useRouter();
     const colorScheme = useColorScheme();
@@ -177,7 +178,6 @@ export default function LoginForm() {
                     />
                 </View>
 
-
                 <View style={styles.field}>
                     <Animated.Text
                         style={[
@@ -188,23 +188,36 @@ export default function LoginForm() {
                     >
                         Password
                     </Animated.Text>
-                    <TextInput
-                        value={password}
-                        onChangeText={setPassword}
-                        onFocus={() => animateIn(passwordFocus)}
-                        onBlur={() => animateOut(passwordFocus, password)}
-                        secureTextEntry
-                        style={[
-                            styles.input,
-                            {
-                                borderColor: theme.colors.border,
-                                color: theme.colors.text,
-                            },
-                        ]}
-                        placeholderTextColor={theme.colors.text + '80'}
-                    />
-                </View>
 
+                    <View style={{ position: 'relative' }}>
+                        <TextInput
+                            value={password}
+                            onChangeText={setPassword}
+                            onFocus={() => animateIn(passwordFocus)}
+                            onBlur={() => animateOut(passwordFocus, password)}
+                            secureTextEntry={!showPassword} // toggled here
+                            style={[
+                                styles.input,
+                                {
+                                    borderColor: theme.colors.border,
+                                    color: theme.colors.text,
+                                    paddingRight: 50, // space for the toggle button
+                                },
+                            ]}
+                            placeholderTextColor={theme.colors.text + '80'}
+                        />
+
+                        {/* Show/Hide Toggle */}
+                        <TouchableOpacity
+                            onPress={() => setShowPassword(!showPassword)}
+                            style={styles.passwordToggle}
+                        >
+                            <Text style={{ color: theme.colors.primary, fontWeight: '500' }}>
+                                {showPassword ? 'Hide' : 'Show'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
                 <TouchableOpacity
                     onPress={handleLogin}
@@ -298,4 +311,12 @@ const styles = StyleSheet.create({
         fontSize: 13,
         opacity: 0.7,
     },
+    passwordToggle: {
+        position: 'absolute',
+        right: 14,
+        top: 0,
+        height: '100%',
+        justifyContent: 'center',
+    },
+
 });
