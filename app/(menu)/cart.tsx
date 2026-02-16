@@ -16,16 +16,11 @@ import { Link } from "expo-router";
 
 
 export default function CartScreenPage() {
-    const { updateQuantity, isloading, setRefreshing, refreshing, cart, fetchCart } = useProduct();
+    const { updateQuantity, isloading, setRefreshing, refreshing, cart, fetchCart, handleDeleteItem } = useProduct();
 
     const handleRefresh = () => {
         setRefreshing(true);
         fetchCart();
-    };
-
-    const handleDeleteItem = () => {
-        console.log('id deleted');
-
     };
 
     if (isloading) {

@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useProduct } from "@/context/useContext";
+import { ThemedView } from "@/components/themed-view";
 
 export default function MapScreen() {
     const mapRef = useRef<MapView | null>(null);
@@ -42,7 +43,7 @@ export default function MapScreen() {
     };
 
     return (
-        <View style={styles.container}>
+        <ThemedView style={styles.container}>
 
             {/* <View style={styles.searchWrapper}>
                 <GooglePlacesAutocomplete
@@ -106,7 +107,7 @@ export default function MapScreen() {
                     moveToLocation(6.5244, 3.3792)
                 } /> */}
             </View>
-        </View>
+        </ThemedView>
     );
 }
 

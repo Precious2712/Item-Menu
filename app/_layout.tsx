@@ -12,7 +12,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
-  const backgroundColor = isDark ? DarkTheme.colors.background : DefaultTheme.colors.background;
+  // const backgroundColor = isDark ? DarkTheme.colors.background : DefaultTheme.colors.background;
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function RootLayout() {
             options={{
               title: 'Create',
               headerStyle: {
-                backgroundColor,
+                backgroundColor: '#0a7ea4'
               },
               headerTintColor: isDark ? '#fff' : '#000',
             }}
@@ -46,7 +46,7 @@ export default function RootLayout() {
             options={{
               title: 'Login',
               headerStyle: {
-                backgroundColor,
+                backgroundColor: '#0a7ea4'
               },
               headerTintColor: isDark ? '#fff' : '#000',
             }}

@@ -36,6 +36,7 @@ type ProductContextType = {
     pickUpLocation: () => Promise<string>;
     cart: Cart | null;
     fetchCart: () => void;
+    handleDeleteItem: (productId: string) => void;
 };
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -291,6 +292,54 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     };
 
 
+    const handleDeleteItem = async (productId: string) => {
+        const token = await AsyncStorage.getItem("token");
+
+        if (!token) {
+            Toast.show({
+                type: "error",
+                text1: "Please login first",
+            });
+            return;
+        }
+
+        try {
+            // setCartLoading(true);
+
+            const res = await axios.delete(
+                `https://backend-service-jfkg.onrender.com/api/v1/delete-product/${productId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            Toast.show({
+                type: "success",
+                text1: res.data.message || "Product removed from cart",
+            });
+
+            // Refresh cart so UI updates
+            fetchCart();
+
+        } catch (error) {
+            console.log("Delete item error:", error);
+
+            let err = "An error occurred";
+
+            if (isAxiosError(error)) {
+                err = error.response?.data?.message || err;
+            }
+
+            Toast.show({
+                type: "error",
+                text1: err,
+            });
+        }
+    };
+
+
 
     useEffect(() => {
         getAllMenu();
@@ -314,7 +363,8 @@ export function ProductProvider({ children }: { children: ReactNode }) {
             updateQuantity,
             setRefreshing,
             refreshing,
-            fetchCart
+            fetchCart,
+            handleDeleteItem
         }}>
             {children}
         </ProductContext.Provider>
