@@ -105,16 +105,18 @@ export default function LoginForm() {
                 const savedToken = await AsyncStorage.getItem("token");
                 console.log("saved token →", savedToken);
 
-                const email = await AsyncStorage.setItem('email', res.data.email);
-                console.log('user-email', email);
+                await AsyncStorage.setItem('email', res.data.email);
+                const userEmail = await AsyncStorage.getItem('email');
+                console.log(userEmail, 'user-email');
+
+
+                Toast.show({
+                    type: "success",
+                    text1: `Welcome, ${email}!`,
+                });
+
+                router.push("/");
             }
-
-            Toast.show({
-                type: "success",
-                text1: `Welcome, ${email}!`,
-            });
-
-            router.push("/");
 
         } catch (error) {
             console.log(error);
