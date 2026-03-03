@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     email: {
         position: 'absolute',
-        bottom: 10,
+        bottom: 40,
         left: 20,
         backgroundColor: "#eee",
         padding: 10,
