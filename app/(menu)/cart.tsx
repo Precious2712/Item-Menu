@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -13,6 +13,7 @@ import {
 import { CartItemCard } from "@/components/LandingPage/cart-item-card";
 import { useProduct } from "@/context/useContext";
 import { Link } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function CartScreenPage() {
@@ -43,6 +44,20 @@ export default function CartScreenPage() {
             </View>
         );
     }
+
+    useEffect(() => {
+        const refreshCart = async () => {
+            const token = await AsyncStorage.getItem("token");
+
+            console.log('token-delete-id', token);
+
+            if (token) {
+                fetchCart();
+            }
+        };
+
+        refreshCart();
+    }, [cart]);
 
 
     return (
